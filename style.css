@@ -1,0 +1,35 @@
+*{padding: 0;
+margin: 0;
+box-sizing: border-box;
+}
+body{
+    background-color: rgb(14, 235, 14);
+}
+
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    text-align: center;
+}
+#title-text{
+    font-size: 44px;
+    margin-bottom: 10px;
+}
+.container-number{
+    min-width: 700px;
+    background-color: blue;
+    color: #fff;
+    font-size: 100px;
+    border: 10px solid gray;
+    padding: 20px;
+    text-align: center;
+}
+
+.d-none{
+    display: none;
+}
+.active{
+    display: block;
+}
