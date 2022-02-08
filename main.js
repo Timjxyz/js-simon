@@ -1,5 +1,5 @@
 //creo la variabile container
-const containerElement=document.querySelector('.container')
+const messaggio=document.getElementById('messaggio')
 
 
 //Container in cui racchiudo i numericasuali
@@ -9,59 +9,44 @@ const containerNumber=document.querySelector('.container-number');
 let randomNumbers=[];
 
 //Ciclo una serie di 5 numeri e li pusho all'interno del container
-for(let i =0; i<5;i++){
-    randomNumbers.push(getRandomNumber(1,100));
+while(randomNumbers.length<5){
+    const numeroGenerato=getRandomNumber(1,100);
+    if(!randomNumbers.includes(numeroGenerato)){
+        randomNumbers.push(numeroGenerato)
+    }
 }
+
 console.log(randomNumbers)
 
 //Scrivo all'interno del container-number una serie di 5 numeri casuali
-containerNumber.innerHTML= randomNumbers
+containerNumber.innerHTML= randomNumbers;
 
 
-setTimeout(myFUnction,30*1000);
+setTimeout(resetNumber,1*1000);
 
 
-function myFUnction(){
+function resetNumber(){
     containerNumber.innerHTML='';
     setTimeout(function() {
-        //Richiesta di inserimento di 5 valori da parte del giocatore
-            for(let i=0;i<5;i++){
-                scegliUnNumero.push(parseInt(prompt('Inserisci un numero con valore da 1-100')));
-            }
-            console.log(scegliUnNumero)
-                 
+             //chiedo all'utente di inserire 5 numeri che ricorda
+            const numeriInseriti= getNumeriUtente()
+            console.log(numeriInseriti)
+            
+            //verifico se ci sono numeri uguali tra quelli inseriti e quelli random
+            const numeriIndovinati= verificaNumeriIndovinati(randomNumbers,numeriInseriti);
+            console.log(numeriIndovinati)
+
+            containerNumber.innerHTML=numeriIndovinati
+            stampaNumeriIndovinati(numeriIndovinati);
             
            
         
-            let numeriScelti;
-            let numeriRaScelti;
-           for(i=0;i<scegliUnNumero.length && i<randomNumbers.length;i++){
-
-               numeriScelti=scegliUnNumero[i];
-               numeriRaScelti=randomNumbers[i];
-
-               if(numeriScelti==numeriRaScelti){
-                    let stampa=[''];
-                    
-                    primoElemento=stampa.shift();
-                   stampa.push(numeriScelti)
-                   console.log(stampa)
-                   
-                   containerNumber.innerHTML+=stampa;
-                   
-                }
-            }
-            
-        
     }, 250);
-    let scegliUnNumero=[];
+    
     
 }
 
-
-
-  
-    
+   
 
 
 
@@ -79,4 +64,43 @@ function getRandomNumber(min, max){
 }
 
 
+/*********************/
+//Funzione  che richiede numeri utente
+function getNumeriUtente(){
+    const numeriUtente=[];
 
+    while(numeriUtente.length<5){
+        numero=parseInt(prompt('Inserisci un numero con valore da 1-100'));
+        if(!numeriUtente.includes(numero) &&! isNaN(numero) && numero<=100 && numero>0){
+            numeriUtente.push(numero);
+        }
+    }
+
+    return numeriUtente;
+}
+
+
+/*********************/
+//Verifico che i numeri inseriti siano uguali a quelli random
+function verificaNumeriIndovinati(arrayNumeriGenerati, arrayNumeriInseriti) {
+
+    const indovinati = [];
+
+    for (let i = 0; i < arrayNumeriInseriti.length; i++) {
+        if (arrayNumeriGenerati.includes(arrayNumeriInseriti[i])) {
+            indovinati.push(arrayNumeriInseriti[i]);
+        }
+    }
+
+    return indovinati;
+
+}
+
+
+function stampaNumeriIndovinati(arrayNumeriIndovinati) {
+
+    const qtaNumeriIndovinati = arrayNumeriIndovinati.length;
+    let text =  qtaNumeriIndovinati == 1? ' numero':'numeri';
+    messaggio.innerHTML = 'Hai indovinato ' + qtaNumeriIndovinati + ' ' + text + ' [' + arrayNumeriIndovinati + ']';
+   
+}
