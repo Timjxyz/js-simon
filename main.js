@@ -22,7 +22,7 @@ console.log(randomNumbers)
 containerNumber.innerHTML= randomNumbers;
 
 
-setTimeout(resetNumber,1*1000);
+setTimeout(resetNumber,30*1000);
 
 
 function resetNumber(){
